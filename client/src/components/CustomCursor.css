@@ -1,0 +1,29 @@
+/* src/components/CustomCursor.css */
+
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden; /* Prevent scrolling */
+}
+
+.cursor {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.8); /* White cursor */
+    border-radius: 50%;
+    pointer-events: none; /* Prevent pointer events on cursor */
+    transition: transform 0.1s ease; /* Smooth movement */
+    z-index: 9999; /* Ensure it stays on top */
+}
+
+.smoke {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.8); /* White smoke */
+    border-radius: 50%;
+    pointer-events: none; /* Prevent pointer events */
+    opacity: 1;
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth fading and movement */
+}
