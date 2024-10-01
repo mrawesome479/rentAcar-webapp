@@ -29,6 +29,10 @@ const Login = () => {
         }
     };
 
+    const redirectToSignup = () => {
+        navigate('/signup'); // Redirect to the signup page
+    };
+
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-900">
             <div className="bg-gray-800 p-8 rounded-lg shadow-lg max-w-sm w-full">
@@ -71,6 +75,17 @@ const Login = () => {
                         Log In
                     </button>
                 </form>
+                <div className="text-white text-center mt-4">
+                    <p>
+                        Don't have an account?{' '}
+                        <span
+                            onClick={redirectToSignup}
+                            className="text-blue-400 hover:text-blue-500 cursor-pointer"
+                        >
+                            Sign Up
+                        </span>
+                    </p>
+                </div>
             </div>
         </div>
     );
