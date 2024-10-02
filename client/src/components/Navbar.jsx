@@ -24,7 +24,7 @@ const Navbar = () => {
             <div className="container mx-auto flex justify-between items-center">
                 {/* Logo on the left */}
                 <div className="text-2xl font-bold text-white">
-                    <Link to="/">Car Rental</Link>
+                    <Link to="/fico"><img src="/CarRentHubLogo.png" alt="Car Rental Logo" className="h-10 w-auto" /></Link>
                 </div>
                 
                 {/* Centered Links */}
