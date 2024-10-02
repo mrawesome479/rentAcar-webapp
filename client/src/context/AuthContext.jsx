@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
     setError(null);
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/auth/signup`,
+        `${import.meta.env.VITE_API_URL}/api/auth/signup`,
         { username, password }
       );
       setUser(response.data.user); // Set user from signup response
@@ -67,7 +67,7 @@ export const AuthProvider = ({ children }) => {
     setError(null);
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/auth/login`,
+        `${import.meta.env.VITE_API_URL}/api/auth/login`,
         { username, password }
       );
 
