@@ -1,14 +1,14 @@
 import React from 'react';
 import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom'; // Import Link and useNavigate from react-router-dom
+import { Link, useNavigate } from 'react-router-dom';
 
 const Footer = () => {
-  const navigate = useNavigate(); // Get the navigate function from useNavigate
+  const navigate = useNavigate(); // Use the useNavigate hook
 
-  // Function to handle navigation to Home and scroll to the top
-  const handleNavigateToHome = () => {
-    window.scrollTo(0, 0); // Scroll to the top
-    navigate('/'); // Navigate to the home page
+  // Function to handle navigation to About page and scroll to top
+  const handleNavigateToAbout = () => {
+    navigate('/about'); // Navigate to the About page
+    window.scrollTo(0, 0); // Scroll to the top of the page
   };
 
   return (
@@ -26,7 +26,6 @@ const Footer = () => {
           <div className="flex space-x-6">
             <a
               href="#"
-              target="_blank"
               rel="noopener noreferrer"
               className="hover:text-blue-400"
             >
@@ -34,7 +33,6 @@ const Footer = () => {
             </a>
             <a
               href="#"
-              target="_blank"
               rel="noopener noreferrer"
               className="hover:text-blue-300"
             >
@@ -42,7 +40,6 @@ const Footer = () => {
             </a>
             <a
               href="#"
-              target="_blank"
               rel="noopener noreferrer"
               className="hover:text-pink-500"
             >
@@ -56,14 +53,16 @@ const Footer = () => {
           <h2 className="text-lg font-semibold mb-4">Quick Links</h2>
           <ul className="space-y-2 text-center md:text-right">
             <li>
-              {/* Use onClick to handle navigation to Home */}
-              <Link to="/about" className="hover:text-blue-300">About Us</Link>
+              {/* Use the custom function to handle navigation */}
+              <button onClick={handleNavigateToAbout} className="hover:text-blue-300">
+                About Us
+              </button>
             </li>
             <li>
-              <Link to="#" className="hover:text-blue-300" onClick={handleNavigateToHome}>Contact Us</Link>
+              <Link to="#" className="hover:text-blue-300">Contact Us</Link>
             </li>
             <li>
-              <Link to="#" className="hover:text-blue-300" onClick={handleNavigateToHome}>Privacy Policy</Link>
+              <Link to="#" className="hover:text-blue-300">Privacy Policy</Link>
             </li>
           </ul>
         </div>
@@ -71,7 +70,7 @@ const Footer = () => {
 
       {/* Powered By */}
       <div className="text-center mt-8">
-        <p className="text-sm">Powered by Car Rental Services</p>
+        <p className="text-sm">Powered by CarRental</p>
       </div>
     </footer>
   );
