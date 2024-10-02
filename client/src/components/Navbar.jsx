@@ -7,7 +7,6 @@ const Navbar = () => {
     const location = useLocation();
     const { user, logout } = useContext(AuthContext);
 
-    console.log('Current User in Navbar:', user); // Log the user state
 
     const toggleMenu = () => setIsOpen(!isOpen);
 
