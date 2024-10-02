@@ -1,15 +1,14 @@
 import React from 'react';
-import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa'; // FontAwesome social media icons
-import { useNavigate } from 'react-router-dom'; // Import the useNavigate hook
-import { Link } from 'react-router-dom';
+import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom'; // Import Link and useNavigate from react-router-dom
 
 const Footer = () => {
-  const navigate = useNavigate(); // Initialize the useNavigate hook
+  const navigate = useNavigate(); // Get the navigate function from useNavigate
 
-  // Function to handle link clicks and navigate to the home page
-  const handleLinkClick = (e) => {
-    e.preventDefault(); // Prevent default link behavior
-    navigate('/'); // Redirect to home page
+  // Function to handle navigation to Home and scroll to the top
+  const handleNavigateToHome = () => {
+    window.scrollTo(0, 0); // Scroll to the top
+    navigate('/'); // Navigate to the home page
   };
 
   return (
@@ -26,22 +25,25 @@ const Footer = () => {
           <h2 className="text-lg font-semibold mb-4">Follow Us</h2>
           <div className="flex space-x-6">
             <a
-              href="https://facebook.com"
-              onClick={handleLinkClick}
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-blue-400"
             >
               <FaFacebookF className="text-2xl" />
             </a>
             <a
-              href="https://twitter.com"
-              onClick={handleLinkClick}
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-blue-300"
             >
               <FaTwitter className="text-2xl" />
             </a>
             <a
-              href="https://instagram.com"
-              onClick={handleLinkClick}
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-pink-500"
             >
               <FaInstagram className="text-2xl" />
@@ -49,18 +51,19 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Quick Links or Contact */}
+        {/* Quick Links */}
         <div className="flex flex-col items-center md:items-end">
           <h2 className="text-lg font-semibold mb-4">Quick Links</h2>
           <ul className="space-y-2 text-center md:text-right">
             <li>
-              <Link href="/about" className="hover:text-blue-300">About Us</Link>
+              {/* Use onClick to handle navigation to Home */}
+              <Link to="/about" className="hover:text-blue-300">About Us</Link>
             </li>
             <li>
-              <a href="/contact" onClick={handleLinkClick} className="hover:text-blue-300">Contact Us</a>
+              <Link to="#" className="hover:text-blue-300" onClick={handleNavigateToHome}>Contact Us</Link>
             </li>
             <li>
-              <a href="/privacy" onClick={handleLinkClick} className="hover:text-blue-300">Privacy Policy</a>
+              <Link to="#" className="hover:text-blue-300" onClick={handleNavigateToHome}>Privacy Policy</Link>
             </li>
           </ul>
         </div>
