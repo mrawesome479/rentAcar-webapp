@@ -16,7 +16,7 @@ const BookedCars = () => {
 
       try {
         // Fetch only bookings for the logged-in user
-        const response = await axios.get(`http://localhost:5000/api/bookings`, {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/bookings`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`, // Pass the token in headers for auth
           },
@@ -46,7 +46,7 @@ const BookedCars = () => {
     console.log('Cancelling booking with ID:', selectedBooking);
 
     try {
-      await axios.delete(`http://localhost:5000/api/bookings/${selectedBooking}`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/bookings/${selectedBooking}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`, // Pass the token in headers for auth
         },
