@@ -54,7 +54,7 @@ const Footer = () => {
           <h2 className="text-lg font-semibold mb-4">Quick Links</h2>
           <ul className="space-y-2 text-center md:text-right">
             <li>
-              <a href="../about" className="hover:text-blue-300">About Us</a>
+              <Link href="/about" className="hover:text-blue-300">About Us</Link>
             </li>
             <li>
               <a href="/contact" onClick={handleLinkClick} className="hover:text-blue-300">Contact Us</a>
