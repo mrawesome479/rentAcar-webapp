@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
     setError(null);
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/auth/signup",
+        `${process.env.REACT_APP_API_URL}/api/auth/signup`,
         { username, password }
       );
       setUser(response.data.user); // Set user from signup response
@@ -67,7 +67,7 @@ export const AuthProvider = ({ children }) => {
     setError(null);
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        `${process.env.REACT_APP_API_URL}/api/auth/login`,
         { username, password }
       );
 
