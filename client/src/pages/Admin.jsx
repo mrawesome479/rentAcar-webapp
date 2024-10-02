@@ -15,7 +15,7 @@ const Admin = () => {
 
     try {
       // Send car data to the server
-      const response = await axios.post('http://localhost:5000/api/cars', car); // Send car object directly
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/cars`, car); // Send car object directly
 
       setSuccessMessage('Car added successfully!');
       setErrorMessage(''); // Clear previous error messages
