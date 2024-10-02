@@ -25,7 +25,7 @@ const Book = () => {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/cars');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/cars`);
         setCars(response.data);
       } catch (error) {
         console.error('Error fetching cars', error);
@@ -129,7 +129,7 @@ const Book = () => {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/bookings', {
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/bookings`, {
         carId: bookingDetails.carId,
         startDate: bookingDetails.startDate,
         endDate: bookingDetails.endDate,
