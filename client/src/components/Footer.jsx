@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {/* Company Info */}
         <div className="flex flex-col items-center md:items-start">
-          <img src="/path-to-your-logo.png" alt="Company Logo" className="w-24 mb-4" /> {/* Replace with your logo */}
+          <img src="/CarRentalHubLogo.png" alt="Company Logo" className="w-24 mb-4" /> {/* Replace with your logo */}
           <p className="text-sm text-center md:text-left">© 2024 Car Rental. All Rights Reserved.</p>
         </div>
 
