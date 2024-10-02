@@ -1,7 +1,17 @@
 import React from 'react';
 import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa'; // FontAwesome social media icons
+import { useNavigate } from 'react-router-dom'; // Import the useNavigate hook
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
+  const navigate = useNavigate(); // Initialize the useNavigate hook
+
+  // Function to handle link clicks and navigate to the home page
+  const handleLinkClick = (e) => {
+    e.preventDefault(); // Prevent default link behavior
+    navigate('/'); // Redirect to home page
+  };
+
   return (
     <footer className="p-8 bg-black text-gray-300">
       <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
@@ -17,24 +27,21 @@ const Footer = () => {
           <div className="flex space-x-6">
             <a
               href="https://facebook.com"
-              target="_blank"
-              rel="noopener noreferrer"
+              onClick={handleLinkClick}
               className="hover:text-blue-400"
             >
               <FaFacebookF className="text-2xl" />
             </a>
             <a
               href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
+              onClick={handleLinkClick}
               className="hover:text-blue-300"
             >
               <FaTwitter className="text-2xl" />
             </a>
             <a
               href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
+              onClick={handleLinkClick}
               className="hover:text-pink-500"
             >
               <FaInstagram className="text-2xl" />
@@ -47,13 +54,13 @@ const Footer = () => {
           <h2 className="text-lg font-semibold mb-4">Quick Links</h2>
           <ul className="space-y-2 text-center md:text-right">
             <li>
-              <a href="/about" className="hover:text-blue-300">About Us</a>
+              <a href="../about" className="hover:text-blue-300">About Us</a>
             </li>
             <li>
-              <a href="/contact" className="hover:text-blue-300">Contact Us</a>
+              <a href="/contact" onClick={handleLinkClick} className="hover:text-blue-300">Contact Us</a>
             </li>
             <li>
-              <a href="/privacy" className="hover:text-blue-300">Privacy Policy</a>
+              <a href="/privacy" onClick={handleLinkClick} className="hover:text-blue-300">Privacy Policy</a>
             </li>
           </ul>
         </div>
