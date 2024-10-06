@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import CarCard from '../components/CarCard';
 import AlertBox from '../components/AlertBox';
-import DatePicker from 'react-datepicker'; // Import DatePicker
-import 'react-datepicker/dist/react-datepicker.css'; // Import styles for DatePicker
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const Book = () => {
   const { user } = useContext(AuthContext);
@@ -22,10 +22,13 @@ const Book = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [showAlert, setShowAlert] = useState(false);
 
+  // Create a ref for the booking form section
+  const bookingFormRef = useRef(null);
+
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/cars`);
+        const response = await axios.get('https://rentacar-webapp.onrender.com/api/cars');
         setCars(response.data);
       } catch (error) {
         console.error('Error fetching cars', error);
@@ -34,6 +37,13 @@ const Book = () => {
     };
     fetchCars();
   }, []);
+
+  // Scroll to the booking form when carId is set
+  useEffect(() => {
+    if (bookingDetails.carId && bookingFormRef.current) {
+      bookingFormRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [bookingDetails.carId]);
 
   const handleBookCar = (carId, pricePerDay) => {
     if (!user) {
@@ -49,23 +59,20 @@ const Book = () => {
       [type]: date,
     };
 
-    // Get today’s date for validation
+    // Date validation and total price calculation logic (unchanged)
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Set time to midnight for accurate comparison
 
-    // Validate the start date
     if (newBookingDetails.startDate && newBookingDetails.startDate < today) {
       setErrorMessage('The start date cannot be in the past. Please select today or a future date.');
       return;
     }
 
-    // Validate the end date
     if (newBookingDetails.startDate && newBookingDetails.endDate && newBookingDetails.endDate < newBookingDetails.startDate) {
       setErrorMessage('The end date cannot be before the start date. Please select a valid date range.');
       return;
     }
 
-    // Calculate total price based on valid dates
     if (newBookingDetails.startDate && newBookingDetails.endDate && newBookingDetails.endDate >= newBookingDetails.startDate) {
       const timeDifference = newBookingDetails.endDate - newBookingDetails.startDate;
       const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
@@ -88,20 +95,19 @@ const Book = () => {
   const handleDriverChange = (e) => {
     const newWithDriver = e.target.checked;
     const newBookingDetails = { ...bookingDetails, withDriver: newWithDriver };
-    
-    // Recalculate total price
+
     if (newBookingDetails.startDate && newBookingDetails.endDate) {
       const timeDifference = newBookingDetails.endDate - newBookingDetails.startDate;
       const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
       let basePrice = daysDifference >= 0 ? daysDifference * newBookingDetails.pricePerDay : 0;
 
       if (newWithDriver) {
-        basePrice += daysDifference >= 0 ? daysDifference * 20 : 0; // Add driver fee
+        basePrice += daysDifference >= 0 ? daysDifference * 20 : 0;
       }
 
       newBookingDetails.totalPrice = basePrice;
     }
-    
+
     setBookingDetails(newBookingDetails);
   };
 
@@ -112,12 +118,12 @@ const Book = () => {
       return;
     }
 
+    // Date validation logic (unchanged)
     const selectedStartDate = new Date(bookingDetails.startDate);
     const selectedEndDate = new Date(bookingDetails.endDate);
 
-    // Revalidate the dates before submission
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // Set time to midnight for accurate comparison
+    today.setHours(0, 0, 0, 0);
     if (selectedStartDate < today) {
       setErrorMessage('The start date cannot be in the past. Please select today or a future date.');
       return;
@@ -129,7 +135,7 @@ const Book = () => {
     }
 
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/api/bookings`, {
+      await axios.post('https://rentacar-webapp.onrender.com/api/bookings', {
         carId: bookingDetails.carId,
         startDate: bookingDetails.startDate,
         endDate: bookingDetails.endDate,
@@ -174,7 +180,11 @@ const Book = () => {
 
       {user ? (
         bookingDetails.carId && (
-          <form onSubmit={handleSubmit} className="mt-8 bg-gray-800 p-4 rounded-lg shadow-md">
+          <form 
+            ref={bookingFormRef} // Attach ref to booking form
+            onSubmit={handleSubmit} 
+            className="mt-8 bg-gray-800 p-4 rounded-lg shadow-md"
+          >
             <h2 className="text-xl font-bold mb-4">Booking Details</h2>
             <div className="mb-4">
               <label className="block mb-1">Start Date:</label>
@@ -194,7 +204,7 @@ const Book = () => {
                 onChange={(date) => handleChange(date, 'endDate')}
                 className="border border-gray-600 bg-gray-700 text-white p-3 w-full rounded focus:outline-none focus:ring-2 focus:ring-blue-500" 
                 required 
-                minDate={bookingDetails.startDate ? new Date(bookingDetails.startDate) : new Date()} // Prevent past dates and set min date to start date
+                minDate={bookingDetails.startDate ? new Date(bookingDetails.startDate) : new Date()} 
                 dateFormat="yyyy-MM-dd"
               />
             </div>
@@ -204,7 +214,7 @@ const Book = () => {
                   type="checkbox" 
                   name="withDriver" 
                   checked={bookingDetails.withDriver} 
-                  onChange={handleDriverChange} // Handle checkbox change
+                  onChange={handleDriverChange} 
                   className="mr-2" 
                 />
                 Book with Driver (+$20 per day)
